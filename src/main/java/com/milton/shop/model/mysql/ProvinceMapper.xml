@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.ProvinceMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.Province" >
+    <id column="provinceid" property="provinceid" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from province
+    where provinceid = #{provinceid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.milton.shop.model.Province" >
+    insert into province (provinceid, province_name)
+    values (#{provinceid,jdbcType=INTEGER}, #{provinceName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.milton.shop.model.Province" >
+    update province
+    set province_name = #{provinceName,jdbcType=VARCHAR}
+    where provinceid = #{provinceid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select provinceid, province_name
+    from province
+    where provinceid = #{provinceid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select *
+    from province
+  </select>
+</mapper>

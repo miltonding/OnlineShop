@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:util="http://www.springframework.org/schema/util" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+           http://www.springframework.org/schema/cache
+           http://www.springframework.org/schema/cache/spring-cache.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
+           http://www.springframework.org/schema/mvc
+           http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.1.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+  <bean id="jdbcConfigurer"  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations" value="classpath:app.properties"/>
+  </bean>
+  <!-- Data source -->
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" scope="singleton" destroy-method="close">
+    <property name="driverClass" value="${jdbc.driver}"/>
+    <property name="jdbcUrl" value="${jdbc.url}"/>
+    <property name="user" value="${jdbc.username}"/>
+    <property name="password" value="${jdbc.pwd}"/>
+    <property name="initialPoolSize" value="5"/>
+    <property name="acquireIncrement" value="3"/>
+    <property name="minPoolSize" value="5"/>
+    <property name="maxPoolSize" value="20"/>
+  </bean>
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="typeAliasesPackage" value="com.milton.shop.model"/>
+    <property name="mapperLocations" value="classpath*:com/milton/shop/model/mysql/*Mapper.xml" /> 
+  </bean>
+  <!-- template -->
+  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg index="0" ref="sqlSessionFactory"/>
+  </bean>
+  <!-- Dao -->
+  <bean id="baseDao" abstract="true">
+    <property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+  </bean>
+  <bean id="userDao" class="com.milton.shop.dao.mybatis.UserDaoImpl" parent="baseDao"/>
+  <bean id="provinceDao" class="com.milton.shop.dao.mybatis.ProvinceDaoImpl" parent="baseDao"/>
+  <bean id="cityDao" class="com.milton.shop.dao.mybatis.CityDaoImpl" parent="baseDao"/>
+  <bean id="districtDao" class="com.milton.shop.dao.mybatis.DistrictDaoImpl" parent="baseDao"/>
+  <bean id="addressDao" class="com.milton.shop.dao.mybatis.AddressDaoImpl" parent="baseDao"/>
+  <bean id="goodsDao" class="com.milton.shop.dao.mybatis.GoodsDaoImpl" parent="baseDao"/>
+  <bean id="cartDao" class="com.milton.shop.dao.mybatis.CartDaoImpl" parent="baseDao"/>
+  <bean id="orderDao" class="com.milton.shop.dao.mybatis.OrderDaoImpl" parent="baseDao"/>
+  <bean id="lineGoodsDao" class="com.milton.shop.dao.mybatis.LineGoodsDaoImpl" parent="baseDao"/>
+  <bean id="paymentDao" class="com.milton.shop.dao.mybatis.PaymentDaoImpl" parent="baseDao"/>
+  <bean id="inventoryDao" class="com.milton.shop.dao.mybatis.InventoryDaoImpl" parent="baseDao"/>
+  <bean id="dLFileFolderDao" class="com.milton.shop.dao.mybatis.DLFileFolderDaoImpl" parent="baseDao"/>
+  <bean id="dLFileEntryDao" class="com.milton.shop.dao.mybatis.DLFileEntryDaoImpl" parent="baseDao"/>
+  <bean id="userRoleDao" class="com.milton.shop.dao.mybatis.UserRoleDaoimpl" parent="baseDao"/>
+  <bean id="kindDao" class="com.milton.shop.dao.mybatis.KindDaoImpl" parent="baseDao"/>
+  <bean id="categoryDao" class="com.milton.shop.dao.mybatis.CategoryDaoImpl" parent="baseDao"/>
+  <bean id="productDao" class="com.milton.shop.dao.mybatis.ProductDaoImpl" parent="baseDao"/>
+
+  <!-- TransactionManager -->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+  </bean>
+
+  <!-- spring aop -->
+    <bean id="logMethodTime" class="com.milton.shop.common.LogMethodTime"/>
+    
+  <!-- define aspect -->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <!-- the method name of service -->
+      <tx:method name="register*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="create*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="add*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="insert*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="delete*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="remove*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="update*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="edit*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="batchUpdate*" propagation="REQUIRED" read-only="false"/>
+      <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+    </tx:attributes>
+  </tx:advice>
+
+  <!--aspect point into service -->  
+  <!-- Aop -->
+    <aop:config> 
+      <aop:pointcut id="pc" expression="execution(* com.milton.shop.service..*.*(..))" /> 
+      <aop:advisor advice-ref="logMethodTime" pointcut-ref="pc" order="1"/> 
+      <aop:advisor advice-ref="txAdvice" pointcut-ref="pc" order="2"/> 
+    </aop:config> 
+
+  <!-- service -->
+  <bean id="userService" class="com.milton.shop.service.impl.UserServiceImpl">
+    <property name="userDao" ref="userDao"/>
+    <property name="cityDao" ref="cityDao"/>
+    <property name="districtDao" ref="districtDao"/>
+    <property name="addressDao" ref="addressDao"/>
+    <property name="userRoleDao" ref="userRoleDao"/>
+  </bean>
+  <bean id="provinceService" class="com.milton.shop.service.impl.ProvinceServiceImpl">
+    <property name="provinceDao" ref="provinceDao"/>
+  </bean>
+  <bean id="addressService" class="com.milton.shop.service.impl.AddressServiceImpl">
+    <property name="addressDao" ref="addressDao"/>
+  </bean>
+  <bean id="productService" class="com.milton.shop.service.impl.ProductServiceImpl">
+    <property name="productDao" ref="productDao"/>
+  </bean>
+  <bean id="goodsService" class="com.milton.shop.service.impl.GoodsServiceImpl">
+    <property name="goodsDao" ref="goodsDao"/>
+    <property name="inventoryDao" ref="inventoryDao"/>
+  </bean>
+  <bean id="cartService" class="com.milton.shop.service.impl.CartServiceImpl">
+    <property name="cartDao" ref="cartDao"/>
+  </bean>
+  <bean id="orderService" class="com.milton.shop.service.impl.OrderServiceImpl">
+    <property name="orderDao" ref="orderDao"/>
+    <property name="cartDao" ref="cartDao"/>
+    <property name="lineGoodsDao" ref="lineGoodsDao"/>
+    <property name="goodsDao" ref="goodsDao"/>
+    <property name="paymentDao" ref="paymentDao"/>
+    <property name="inventoryDao" ref="inventoryDao"/>
+    <property name="addressDao" ref="addressDao"/>
+  </bean>
+  <bean id="lineGoodsService" class="com.milton.shop.service.impl.LineGoodsServiceImpl">
+    <property name="lineGoodsDao" ref="lineGoodsDao"/>
+  </bean>
+  <bean id="documentsService" class="com.milton.shop.service.impl.DocumentsServiceImpl">
+    <property name="userDao" ref="userDao"/>
+    <property name="dLFileFolderDao" ref="dLFileFolderDao"/>
+    <property name="dLFileEntryDao" ref="dLFileEntryDao"/>
+    <property name="kindDao" ref="kindDao"/>
+    <property name="categoryDao" ref="categoryDao"/>
+    <property name="productDao" ref="productDao"/>
+  </bean>
+  <bean id="userRoleService" class="com.milton.shop.service.impl.UserRoleServiceImpl">
+    <property name="userRoleDao" ref="userRoleDao"/>
+  </bean>
+  
+  <!-- 多部分文件上传 -->
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="4194304" />
+    <property name="maxInMemorySize" value="4096" />
+    <property name="defaultEncoding" value="UTF-8"></property>
+  </bean>
+</beans>
+

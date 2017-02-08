@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.Product" >
+    <id column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="categoryid" property="categoryid" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="WrapperResultMap" type="com.milton.shop.model.wrapper.ProductWrapper" >
+    <id column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="kindid" property="kindid" jdbcType="INTEGER" />
+    <result column="categoryid" property="categoryid" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from product
+    where productid = #{productid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.milton.shop.model.Product" >
+    insert into product (categoryid, product_name, 
+      icon, weight)
+    values (#{categoryid,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.milton.shop.model.Product" >
+    update product
+    set categoryid = #{categoryid,jdbcType=INTEGER},
+        product_name = #{productName,jdbcType=VARCHAR},
+        icon = #{icon,jdbcType=VARCHAR},
+        weight = #{weight,jdbcType=INTEGER}
+    where productid = #{productid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="WrapperResultMap" parameterType="map" >
+    SELECT k.kindid, p.productid, p.categoryid, p.product_name, p.icon, p.weight
+    FROM kind k
+    JOIN category ca
+    ON k.kindid = ca.kindid
+    JOIN product p
+    ON ca.categoryid = p.categoryid
+    WHERE p.productid = #{productid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCategoryid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT productid, categoryid, product_name, icon, weight
+    FROM product
+    WHERE categoryid = #{categoryid,jdbcType=INTEGER}
+  </select>
+  <select id="findByKindid" resultMap="WrapperResultMap" parameterType="java.util.Map">
+    SELECT k.kindid, p.productid, p.categoryid,
+      p.product_name, p.icon, p.weight
+    FROM kind k
+    JOIN category ca
+    ON k.kindid = ca.kindid
+    JOIN product p
+    ON ca.categoryid = p.categoryid
+    WHERE k.kindid = #{kindid,jdbcType=INTEGER}
+    ORDER BY p.categoryid
+    LIMIT #{limit,jdbcType=INTEGER}
+  </select>
+</mapper>

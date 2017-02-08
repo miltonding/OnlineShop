@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="screen_name" property="screenName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="header_entryid" property="headerEntryid" jdbcType="INTEGER" />
+    <result column="secret_question" property="secretQuestion" jdbcType="VARCHAR" />
+    <result column="secret_answer" property="secretAnswer" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="is_encypted" property="isEncypted" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="createUser" parameterType="com.milton.shop.model.User" useGeneratedKeys="true" keyProperty="userid">
+    insert into user (uuid, username, 
+      password, phone_number, email, 
+      sex, screen_name, real_name, 
+      hobby, birthday, header_entryid, 
+      secret_question, secret_answer, create_time, 
+      update_time, last_login_time, is_encypted, 
+      is_delete)
+    values (#{uuid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{screenName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{hobby,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{headerEntryid,jdbcType=VARCHAR}, 
+      #{secretQuestion,jdbcType=VARCHAR}, #{secretAnswer,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{isEncypted,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER})
+  </insert>
+  <update id="updateProfile" parameterType="com.milton.shop.model.User" >
+    update user
+    set phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      screen_name = #{screenName,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      secret_question = #{secretQuestion,jdbcType=VARCHAR},
+      secret_answer = #{secretAnswer,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select userid, uuid, username, password, phone_number, email, sex, screen_name, real_name, 
+    hobby, birthday, header_entryid, secret_question, secret_answer, create_time, update_time, 
+    last_login_time, is_encypted, is_delete
+    from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select userid, uuid, username, password, phone_number, email, sex, screen_name, real_name, 
+    hobby, birthday, header_entryid, secret_question, secret_answer, create_time, update_time, 
+    last_login_time, is_encypted, is_delete
+    from user
+  </select>
+  <select id="getUserByUserName" parameterType="String" resultMap="BaseResultMap">
+    <![CDATA[
+     SELECT *
+     FROM user
+     WHERE username = #{username,jdbcType=VARCHAR}
+    ]]>
+  </select>
+  <select id="updatePassword" parameterType="com.milton.shop.model.User">
+    <![CDATA[
+      Update `user`
+      SET password = #{password,jdbcType=VARCHAR},
+          is_encypted = #{isEncypted,jdbcType=INTEGER},
+          update_time = #{updateTime,jdbcType=TIMESTAMP}
+      WHERE userid = #{userid,jdbcType=INTEGER}
+    ]]>
+  </select>
+  <select id="updateLatLoginTime" parameterType="com.milton.shop.model.User">
+    <![CDATA[
+      Update `user`
+      SET last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+      WHERE userid = #{userid,jdbcType=INTEGER}
+    ]]>
+  </select>
+  <select id="updateHeader" parameterType="com.milton.shop.model.User">
+    <![CDATA[
+      Update `user`
+      SET header_entryid = #{headerEntryid,jdbcType=VARCHAR}
+      WHERE userid = #{userid,jdbcType=INTEGER}
+    ]]>
+  </select>
+</mapper>

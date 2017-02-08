@@ -1,0 +1,182 @@
+#order-content {
+
+    #order-page {
+        padding-left: 0;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                color: #c81623;
+            }
+        }
+
+        .order-wrapper {
+            .order-title {
+                font-weight: 700;
+                color: #c81623;
+            }
+
+            .order-breadcrumb {
+                background-color: #f5f5f5;
+                padding: 10px;
+
+                .part-one {
+                    text-align: left;
+
+                    font {
+                        margin-left: 5%;
+                    }
+                }
+            }
+
+            .order-list {
+                ul {
+                    padding-left: 10px;
+
+                    .goods-li {
+                        height: 110px;
+                        padding: 15px 0 10px;
+                        overflow: hidden;
+
+                        .p-goods {
+                            padding-left: 0;
+                            height: inherit;
+
+                            .goods-item {
+                                float: left;
+                                width: 97%;
+                                height: 80px;
+                                overflow: hidden;
+
+                                .p-img {
+                                    float: left;
+                                    width: 20%;
+                                    height: inherit;
+                                    border: 1px solid #eee;
+                                    background: #fff;
+                                    padding: 0;
+                                    text-align: center;
+                                    overflow: inherit;
+                                }
+
+                                .p-name {
+                                    float: right;
+                                    width: 80%;
+                                    height: inherit;
+                                    margin-top: 15px;
+                                    overflow: inherit;
+                                }
+                            }
+                        }
+
+                        .p-receiver {
+                            padding-top: 15px;
+                            overflow: inherit;
+
+                            .receiver-name {
+                                color: #333;
+                                font-weight: 400;
+                            }
+                        }
+
+                        .p-phone {
+                            padding: 0 4%;
+                            padding-top: 15px;
+                            height: 40px;
+                            overflow: inherit;
+                        }
+
+                        .total-single, .order-status {
+                            overflow: inherit;
+                            padding-top: 15px;
+
+                            a {
+                                display: block;
+                                margin-bottom: 5px;
+                            }
+                        }
+
+                        .total-price {
+                            .total-number {
+                                font-size: 20px;
+                                color: #e4393c;
+                                font-weight: 700;
+                            }
+                        }
+
+                        .buy-total {
+                            color: #fff;
+
+                            a:hover {
+                                color: #fff;
+                            }
+                        }
+                    }
+
+                    .total-li {
+                        @extend .goods-li;
+                        height: auto;
+                    }
+                }
+
+                .page-wrapper {
+                    padding: 20px;
+                    padding-right: 0;
+
+                    .page-block {
+                        text-align: right;
+                        height: 45px;
+                        line-height: 45px;
+                        overflow: hidden;
+
+                        .page-ul {
+                            margin: 0;
+                            padding: 0;
+
+                            li {
+                                margin-left: 5px;
+                                display: inline-block;
+                            }
+
+                            .less-single {
+                                border: none;
+                                font-size: 18px;
+                                text-align: center;
+
+                                &:hover {
+                                    background-color: #fff;
+                                }
+                            }
+
+                            .current-page {
+                                border: none;
+                                color: #c81623;
+
+                                &:hover {
+                                    background-color: #fff;
+                                }
+                            }
+                        }
+                    }
+
+                    .redirect-wrapper {
+                        height: 45px;
+                        line-height: 45px;
+                        overflow: hidden;
+                        text-align: right;
+                        padding-right: 0;
+
+                        .goal-page {
+                            width: 15%;
+                            text-align: center;
+                            margin-left: 10px;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

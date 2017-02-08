@@ -1,0 +1,79 @@
+.order-content .order-page {
+  padding-left: 0; }
+  .order-content .order-page a {
+    color: inherit;
+    text-decoration: none; }
+    .order-content .order-page a:hover {
+      color: #c81623; }
+  .order-content .order-page .order-wrapper .order-title {
+    font-weight: 700;
+    color: #c81623;
+    margin-top: 30px; }
+  .order-content .order-page .order-wrapper .order-breadcrumb {
+    background-color: #f5f5f5;
+    padding: 10px; }
+    .order-content .order-page .order-wrapper .order-breadcrumb .part-one {
+      text-align: left; }
+      .order-content .order-page .order-wrapper .order-breadcrumb .part-one font {
+        margin-left: 5%; }
+  .order-content .order-page .order-list ul {
+    padding-left: 10px; }
+    .order-content .order-page .order-list ul .goods-li, .order-content .order-page .order-list ul .total-li {
+      height: 110px;
+      padding: 15px 0 10px;
+      overflow: hidden; }
+      .order-content .order-page .order-list ul .goods-li .p-goods, .order-content .order-page .order-list ul .total-li .p-goods {
+        padding-left: 0;
+        height: inherit; }
+        .order-content .order-page .order-list ul .goods-li .p-goods .goods-item, .order-content .order-page .order-list ul .total-li .p-goods .goods-item {
+          float: left;
+          width: 97%;
+          height: 80px;
+          overflow: hidden; }
+          .order-content .order-page .order-list ul .goods-li .p-goods .goods-item .p-img, .order-content .order-page .order-list ul .total-li .p-goods .goods-item .p-img {
+            float: left;
+            width: 20%;
+            height: inherit;
+            border: 1px solid #eee;
+            background: #fff;
+            padding: 0;
+            text-align: center;
+            overflow: inherit; }
+            .order-content .order-page .order-list ul .goods-li .p-goods .goods-item .p-img .img-full, .order-content .order-page .order-list ul .total-li .p-goods .goods-item .p-img .img-full {
+              width: 100%;
+              height: 100%; }
+          .order-content .order-page .order-list ul .goods-li .p-goods .goods-item .p-name, .order-content .order-page .order-list ul .total-li .p-goods .goods-item .p-name {
+            float: right;
+            width: 80%;
+            height: inherit;
+            margin-top: 15px;
+            overflow: inherit; }
+      .order-content .order-page .order-list ul .goods-li .p-receiver, .order-content .order-page .order-list ul .total-li .p-receiver {
+        padding-top: 15px;
+        overflow: inherit; }
+        .order-content .order-page .order-list ul .goods-li .p-receiver .receiver-name, .order-content .order-page .order-list ul .total-li .p-receiver .receiver-name {
+          color: #333;
+          font-weight: 400; }
+      .order-content .order-page .order-list ul .goods-li .p-phone, .order-content .order-page .order-list ul .total-li .p-phone {
+        padding: 0 4%;
+        padding-top: 15px;
+        height: 40px;
+        overflow: inherit; }
+      .order-content .order-page .order-list ul .goods-li .total-single, .order-content .order-page .order-list ul .total-li .total-single, .order-content .order-page .order-list ul .goods-li .order-status, .order-content .order-page .order-list ul .total-li .order-status {
+        overflow: inherit;
+        padding-top: 15px; }
+        .order-content .order-page .order-list ul .goods-li .total-single a, .order-content .order-page .order-list ul .total-li .total-single a, .order-content .order-page .order-list ul .goods-li .order-status a, .order-content .order-page .order-list ul .total-li .order-status a {
+          display: block;
+          margin-bottom: 5px; }
+      .order-content .order-page .order-list ul .goods-li .total-price .total-number, .order-content .order-page .order-list ul .total-li .total-price .total-number {
+        font-size: 20px;
+        color: #e4393c;
+        font-weight: 700; }
+      .order-content .order-page .order-list ul .goods-li .buy-total, .order-content .order-page .order-list ul .total-li .buy-total {
+        color: #fff; }
+        .order-content .order-page .order-list ul .goods-li .buy-total a:hover, .order-content .order-page .order-list ul .total-li .buy-total a:hover {
+          color: #fff; }
+    .order-content .order-page .order-list ul .total-li {
+      height: auto; }
+
+/*# sourceMappingURL=order-common.css.map */

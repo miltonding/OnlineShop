@@ -1,0 +1,97 @@
+a {
+  color: #333; }
+
+#content {
+  width: inherit;
+  position: relative; }
+  #content .login_back {
+    height: 600px;
+    background: url("../images/login_back.jpg") no-repeat #fff;
+    background-size: cover;
+    background-position: center center; }
+    #content .login_back .shop_link {
+      position: absolute;
+      width: 630px;
+      height: 440px;
+      top: 80px;
+      left: 250px;
+      z-index: 1000; }
+    #content .login_back .login_block {
+      position: absolute;
+      top: 120px;
+      right: 250px;
+      width: 350px;
+      height: 350px;
+      overflow: hidden;
+      z-index: 1000;
+      background: #FFF;
+      /* login form */ }
+      #content .login_back .login_block .logined_display {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        z-index: 10;
+        padding-top: 30px; }
+        #content .login_back .login_block .logined_display font {
+          color: #428bca; }
+        #content .login_back .login_block .logined_display a {
+          color: #c81623;
+          text-decoration: none; }
+          #content .login_back .login_block .logined_display a:hover {
+            color: #c81623; }
+      #content .login_back .login_block .login_label {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #e4393c;
+        text-align: center; }
+      #content .login_back .login_block .login_form {
+        width: 80%;
+        height: 85%;
+        margin: 0 auto;
+        overflow: hidden; }
+        #content .login_back .login_block .login_form .register_here {
+          width: 16px;
+          height: 18px;
+          background: url("../images/common.png") -104px -75px no-repeat;
+          vertical-align: middle; }
+        #content .login_back .login_block .login_form .register_a {
+          position: absolute;
+          top: 0;
+          right: 0; }
+        #content .login_back .login_block .login_form .error_message {
+          width: 100%;
+          height: 30px;
+          line-height: 30px;
+          text-align: left;
+          background: #ffebeb;
+          color: #e4393c;
+          border: 1px solid #faccc6; }
+        #content .login_back .login_block .login_form .email_field {
+          margin-top: 10px; }
+        #content .login_back .login_block .login_form .common_field {
+          margin-top: 20px; }
+        #content .login_back .login_block .login_form .forget_password {
+          position: absolute;
+          top: 0;
+          right: 0;
+          color: #333; }
+        #content .login_back .login_block .login_form .btn_field {
+          margin-top: 20px;
+          height: 35px;
+          line-height: 35px;
+          color: #fff;
+          text-align: center; }
+          #content .login_back .login_block .login_form .btn_field .login_btn {
+            width: 100%;
+            border: 1px solid #e85356;
+            background: #e4393c;
+            font-size: 20px; }
+            #content .login_back .login_block .login_form .btn_field .login_btn:hover {
+              opacity: 0.8; }
+
+/*# sourceMappingURL=login.css.map */

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.KindMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.Kind" >
+    <id column="kindid" property="kindid" jdbcType="INTEGER" />
+    <result column="kind_name" property="kindName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from kind
+    where kindid = #{kindid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.milton.shop.model.Kind" >
+    insert into kind (kindid, kind_name, icon, 
+      weight)
+    values (#{kindid,jdbcType=INTEGER}, #{kindName,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.milton.shop.model.Kind" >
+    update kind
+    set kind_name = #{kindName,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER}
+    where kindid = #{kindid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select kindid, kind_name, icon, weight
+    from kind
+    where kindid = #{kindid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select kindid, kind_name, icon, weight
+    from kind
+  </select>
+</mapper>

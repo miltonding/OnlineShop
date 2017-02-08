@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>注册</title>
+    <!-- icon -->
+    <link rel="icon" href="../static/images/title_logo.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/user/register.css" />
+
+    <!-- bootstrap module-->
+    <link rel="stylesheet" type="text/css" href="../static/bootstrap/css/bootstrap.min.css" />
+    <script src="../static/js/jquery-2.1.1.min.js"></script>
+    <!--<script src="./bootstrap/js/bootstrap.min.js"></script>-->
+
+    <!-- bootstrap validator -->
+    <script src="../static/bootstrap/js/bootstrapvalidator.min.js"></script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div id="content">
+        <form id="register-form" method="post" class="form-horizontal" action="#">
+          <!-- 下面这个div必须要有，插件根据这个进行添加提示 -->
+          <div class="form-group form-margin">
+            <label class="col-lg-3 control-label font-md">用 户 名</label>
+              <div class="col-lg-5">
+                <input type="text" class="form-control input-lg" name="username" />
+              </div>
+          </div>
+          <div class="form-group form-margin">
+            <label class="col-lg-3 control-label font-md">设 置 密 码</label>
+            <div class="col-lg-5">
+              <input type="password" class="form-control input-lg" name="password" />
+            </div>
+          </div>
+
+          <div class="form-group form-margin">
+            <label class="col-lg-3 control-label font-md">确 认 密 码</label>
+            <div class="col-lg-5">
+              <input type="password" class="form-control input-lg" name="password" />
+            </div>
+          </div>
+
+          <div class="form-group form-margin">
+            <label class="col-lg-3 control-label font-md">手 机 号 码</label>
+            <div class="col-lg-5">
+              <input type="password" class="form-control input-lg" name="password" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label font-md">默 认 收 货 地 址</label>
+            <div class="col-lg-5">
+              <select class="form-control select-province">
+                <option value="">省/直辖市</option>
+                <option>江苏省</option>
+                <option>浙江省</option>
+                <option>福建省</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <select class="form-control select-city">
+                <option value="">市/区</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <select class="form-control select-district">
+                <option value="">县/乡</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label font-md">邮 编 编 码</label>
+            <div class="col-lg-5">
+              <input type="text" class="form-control " name="text" />
+            </div>
+          </div>
+
+          <div class="form-group form-margin">
+            <label class="col-lg-3 control-label font-md">详 细 地 址</label>
+            <div class="col-lg-5">
+              <input type="text" class="form-control " name="text" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-5 col-lg-offset-3">
+              <button type="submit" class="btn btn-danger input-lg btn-full">立即注册</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- footer-->
+      <div id="footer">
+        <div id="declare">
+          Copyright @ 2017 Milton Ding All Rights Reserved.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+.hidden-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    opacity: 0.2;
+    background: #fff;
+}
+
+.disable-screen {
+    @extend .hidden-screen;
+    background: #000;
+}
+
+/* Message */
+.flash-message-ok {
+    position: absolute;
+    left: 40%;
+    top: 0;
+    width: 20%;
+    height: 40px;
+    line-height: 40px;
+    background: #3c763d;
+    z-index: 100;
+    color: #fff;
+}
+
+.flash-message-error {
+    background: #d9534f;
+    @extend .flash-message-ok;
+}
+
+.fixed-message-ok {
+    position: fixed;
+    @extend .flash-message-ok;
+}
+
+.fixed-message-error {
+    position: fixed;
+    @extend .flash-message-error;
+}
+
+.confirm-message {
+    background: #333;
+    top: 50%;
+    height: auto;
+    @extend .fixed-message-ok;
+
+    .ok {
+        color: #3c763d !important;
+        text-decoration: none;
+    }
+
+    .cancel {
+        color: #d9534f!important;
+        @extend .ok;
+    }
+}
+
+/* plain carousel */
+[role="plain-carousel"] {
+    width: 100%;
+    height: inherit;
+    overflow: hidden;
+
+    #item-animation {
+        width: 100%;
+        height: inherit;
+        margin: 0 auto;
+        position: relative;
+
+        .slider_item {
+            position: absolute;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        #move_block {
+            .slider_show {
+                position: absolute;
+                z-index: 1;
+                opacity: 1;
+                transition: all 0.5s ease;
+                -moz-transition: all 0.5s ease;
+                -webkit-transition: all 0.5s ease;
+                -o-transition: all 0.5s ease;
+            }
+
+            .slider_hide {
+                @extend .slider_show;
+                z-index: 0;
+                opacity: 0;
+            }
+        }
+
+        .slider_indicator {
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            margin-left: -91px;
+            bottom: 20px;
+            font-size: 0;
+            padding: 4px 8px;
+            -moz-border-radius: 12px;
+            border-radius: 12px;
+            background-color: hsla(0, 0%, 100%, .3);
+            display: block;
+
+            .slider_indicator_btn {
+                display: inline-block;
+                margin-right: 10px;
+                width: 12px;
+                height: 12px;
+                -moz-border-radius: 100%;
+                border-radius: 100%;
+                background-color: #fff;
+            }
+
+            .slider_indicator_btn_last {
+                margin-right: 0;
+            }
+
+            .slider_indicator_active {
+                background-color: red;
+            }
+        }
+
+        .slider_control_common {
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+            width: 30px;
+            height: 60px;
+            line-height: 60px;
+            margin-top: -30px;
+            background-color: rgba(0, 0, 0, .1);
+            text-align: center;
+            display: none;
+            text-decoration: none;
+
+            &:hover {
+                background-color: #333;
+            }
+        }
+
+        .slider_control_prev {
+            @extend .slider_control_common;
+            left: 0;
+        }
+
+        .slider_control_next {
+            @extend .slider_control_common;
+            right: 0;
+        }
+
+        .slider_control_font {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .common_img {
+            width: 100%;
+            height: 100%;
+            /*
+              实现渐变
+            */
+            transition: all 2s ease;
+            -moz-transition: all 2s ease;
+            -webkit-transition: all 2s ease;
+            -o-transition: all 2s ease;
+        }
+    }
+}
+
+
+/* file upload */
+[role="upload"] {
+    .upload-wrapper {
+        text-align: center;
+
+        .image-block {
+            height: 100px;
+            background: #f9f9f9;
+            border: 1px solid #e9eaec;
+
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .upload-tip {
+            margin-top: 10px;
+            color: #999;
+        }
+
+        .btn-group {
+            width: 100%;
+            margin-bottom: 10px;
+
+            .choose-btn {
+                width: 47.5%;
+                position: relative;
+                overflow: hidden;
+
+                .upload {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    cursor: pointer;
+                    opacity: 0;
+                    height: 100%;
+                }
+            }
+
+            .upload-btn {
+                width: 47.5%;
+                margin-left: 5%;
+            }
+        }
+    }
+}

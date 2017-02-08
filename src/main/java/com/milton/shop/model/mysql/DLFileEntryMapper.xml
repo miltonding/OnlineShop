@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.DLFileEntryMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.DLFileEntry" >
+    <id column="entryid" property="entryid" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="folderid" property="folderid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="mime_type" property="mimeType" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="src_path" property="srcPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getByPrimarykey" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    SELECT entryid, uuid, de.folderid, de.userid, de.file_name, mime_type,
+      de.title, de.path, de.description, 
+      CONCAT(df.parentpath, df.path, IFNULL(de.path, ''),
+       '/', uuid, '.', mime_type) as 'src_path'
+    FROM dlfileentry de
+    LEFT JOIN dlfolder df
+    ON de.folderid = df.folderid
+    WHERE de.entryid = #{entryid,jdbcType=INTEGER}
+  </select>
+  <select id="getByUserid" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    SELECT entryid, uuid, de.folderid, de.userid, de.file_name, mime_type,
+      de.title, de.path, de.description, 
+      CONCAT(df.parentpath, df.path, IFNULL(de.path, ''),
+       '/', uuid, '.', mime_type) as 'src_path'
+    FROM dlfileentry de 
+    LEFT JOIN dlfolder df
+    ON de.folderid = df.folderid
+    WHERE de.userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.milton.shop.model.DLFileEntry" useGeneratedKeys="true" keyProperty="entryid">
+    INSERT INTO dlfileentry (uuid, folderid, userid, file_name,
+      mime_type, title, path, description)
+    VALUES (#{uuid,jdbcType=VARCHAR}, #{folderid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER},
+      #{fileName,jdbcType=VARCHAR},  #{mimeType,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+      #{path,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <update id="update" parameterType="com.milton.shop.model.DLFileEntry" >
+    update dlfileentry
+    set uuid = #{uuid,jdbcType=VARCHAR},
+        folderid = #{folderid,jdbcType=INTEGER},
+        userid = #{userid,jdbcType=INTEGER},
+        file_name = #{fileName,jdbcType=VARCHAR},
+        mime_type = #{mimeType,jdbcType=VARCHAR},
+        title = #{title,jdbcType=VARCHAR},
+        path = #{path,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR}
+    where entryid = #{entryid,jdbcType=INTEGER}
+  </update>
+  <select id="findGoodsEntry" resultMap="BaseResultMap" parameterType="map">
+    SELECT entryid, uuid, de.folderid, de.userid, de.file_name, mime_type,
+      de.title, de.path, de.description, 
+      CONCAT(df.parentpath, df.path, IFNULL(de.path, ''),
+       '/', uuid, '.', mime_type) as 'src_path'
+    FROM dlfileentry de
+    LEFT JOIN dlfolder df
+    ON de.folderid = df.folderid
+    WHERE de.folderid = #{folderid,jdbcType=INTEGER}
+    AND de.path = (
+     SELECT CONCAT('/', k.kindid, '/', p.categoryid, '/', p.productid)
+     FROM kind k
+     JOIN category ca
+     ON k.kindid = ca.kindid
+     JOIN product p
+     ON ca.categoryid = p.categoryid
+     WHERE p.productid = #{productid,jdbcType=INTEGER}
+    )
+  </select>
+</mapper>

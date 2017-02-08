@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.Order" >
+    <id column="orderid" property="orderid" jdbcType="INTEGER" />
+    <result column="paymentid" property="paymentid" jdbcType="INTEGER" />
+    <result column="card_type_id" property="cardTypeId" jdbcType="INTEGER" />
+    <result column="creditcard" property="creditcard" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="receive_addrid" property="receiveAddrid" jdbcType="INTEGER" />
+    <result column="bill_addrid" property="billAddrid" jdbcType="INTEGER" />
+    <result column="transport_price" property="transportPrice" jdbcType="DOUBLE" />
+    <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
+    <result column="transportid" property="transportid" jdbcType="INTEGER" />
+    <result column="is_pay" property="isPay" jdbcType="INTEGER" />
+    <result column="is_cancel" property="isCancel" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="cancel_time" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
+    <result column="payment_name" property="paymentName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from `order`
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.milton.shop.model.Order" useGeneratedKeys="true" keyProperty="orderid">
+    insert into `order` (paymentid, card_type_id, 
+      creditcard, userid, receive_addrid, 
+      bill_addrid, transport_price, total_price, 
+      transportid, is_pay, is_cancel, 
+      is_delete, create_time, pay_time, 
+      update_time, cancel_time, delete_time, displayid
+      )
+    values (#{paymentid,jdbcType=INTEGER}, #{cardTypeId,jdbcType=INTEGER}, 
+      #{creditcard,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{receiveAddrid,jdbcType=INTEGER}, 
+      #{billAddrid,jdbcType=INTEGER}, #{transportPrice,jdbcType=DOUBLE}, #{totalPrice,jdbcType=DOUBLE}, 
+      #{transportid,jdbcType=INTEGER}, #{isPay,jdbcType=INTEGER}, #{isCancel,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, NOW(), null, null, null, null, 
+      CONCAT(DATE_FORMAT(NOW(),'%Y%m%d%k%i'), CEILING(RAND()*500000+500000))
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.milton.shop.model.Order" >
+    update `order`
+    set displayid = #{displayid,jdbcType=VARCHAR},
+      paymentid = #{paymentid,jdbcType=INTEGER},
+      card_type_id = #{cardTypeId,jdbcType=INTEGER},
+      creditcard = #{creditcard,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      receive_addrid = #{receiveAddrid,jdbcType=INTEGER},
+      bill_addrid = #{billAddrid,jdbcType=INTEGER},
+      transport_price = #{transportPrice,jdbcType=DOUBLE},
+      total_price = #{totalPrice,jdbcType=DOUBLE},
+      transportid = #{transportid,jdbcType=INTEGER},
+      is_pay = #{isPay,jdbcType=INTEGER},
+      is_cancel = #{isCancel,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP}
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select orderid, displayid, o.paymentid, p.payment_name, card_type_id, creditcard, userid, receive_addrid, bill_addrid, 
+    transport_price, total_price, transportid, is_pay, is_cancel, is_delete, create_time, 
+    pay_time, update_time, cancel_time, delete_time
+    FROM `order` o
+    LEFT JOIN payment p
+    ON o.paymentid = p.paymentid
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </select>
+  <select id="selectBydisplayid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select orderid, displayid, o.paymentid, p.payment_name, card_type_id, creditcard, userid, receive_addrid, bill_addrid, 
+    transport_price, total_price, transportid, is_pay, is_cancel, is_delete, create_time, 
+    pay_time, update_time, cancel_time, delete_time
+    FROM `order` o
+    LEFT JOIN payment p
+    ON o.paymentid = p.paymentid
+    where displayid = #{displayid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select orderid, displayid, paymentid, card_type_id, creditcard, userid, receive_addrid, bill_addrid, 
+    transport_price, total_price, transportid, is_pay, is_cancel, is_delete, create_time, 
+    pay_time, update_time, cancel_time, delete_time
+    from `order`
+    order by create_time desc
+  </select>
+  <select id="findByUserid" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT orderid, displayid, paymentid, card_type_id, creditcard, userid, receive_addrid, bill_addrid, 
+    transport_price, total_price, transportid, is_pay, is_cancel, is_delete, create_time, 
+    pay_time, update_time, cancel_time, delete_time
+    FROM `order`
+    WHERE userid = #{userid,jdbcType=INTEGER}
+    AND is_delete = 0
+    ORDER BY create_time DESC
+  </select>
+</mapper>

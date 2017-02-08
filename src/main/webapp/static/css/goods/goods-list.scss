@@ -1,0 +1,140 @@
+#goods-list {
+    overflow: hidden;
+
+    .list-wrapper {
+        padding-left: 0;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                color: #c81623;
+            }
+        }
+        .goods-li {
+            float: left;
+            width: 20%;
+            height: 450px;
+            margin-top: 10px;
+            padding: 10px;
+            padding-bottom: 0;
+            overflow: hidden;
+            border: none;
+
+            .goods-model {
+                width: 220px;
+                height: 100%;
+                margin: 0 auto;
+
+                .goods-img {
+                    width: 100%;
+                    height: 220px;
+                    display: block;
+                }
+
+                .goods-price {
+                    width: 100%;
+                    position: relative;
+                    line-height: 22px;
+                    height: 22px;
+                    overflow: hidden;
+                    margin: 0 0 8px;
+
+                    strong {
+                        font-size: 20px;
+                        color: #e4393c;
+                        font-weight: 400;
+                        font-family: Verdana;
+                    }
+                }
+
+                .goods-describe {
+                    margin-top: 10px;
+                    width: 100%;
+                    height: 120px;
+                    overflow: hidden;
+                }
+
+                .goods-operation {
+                    width: 100%;
+                    height: 40px;
+                    overflow: hidden;
+
+                    a {
+                        text-decoration: none;
+                        color: #fff;
+                    }
+
+                    .detail-btn {
+                        float: left;
+                        display: block;
+                        width: 30%;
+                    }
+
+                    .add-btn {
+                        display: block;
+                        float: right;
+                        width: 55%;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .page-wrapper {
+        padding: 20px;
+
+        .page-block {
+            text-align: right;
+            height: 45px;
+            line-height: 45px;
+            overflow: hidden;
+            padding-top: 5px;
+
+            .page-ul {
+                margin: 0;
+                padding: 0;
+
+                li {
+                    margin-left: 5px;
+                    display: inline-block;
+                }
+
+                .less-single {
+                    border: none;
+                    font-size: 18px;
+                    text-align: center;
+
+                    &:hover {
+                        background-color: #fff;
+                    }
+                }
+
+                .current-page {
+                    border: none;
+                    color: #c81623;
+
+                    &:hover {
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
+
+        .redirect-wrapper {
+            height: 45px;
+            line-height: 45px;
+            overflow: hidden;
+            text-align: right;
+
+            .goal-page {
+                width: 15%;
+                text-align: center;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+    }
+}

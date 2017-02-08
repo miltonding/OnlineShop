@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!--
+        注意本文件的编码格式为ANSI
+        将本generatorConfig.xml文件复制一份为到src/main/resource中, 修改副本和database.propeties中的相关配置,
+        然后在run中添加一个maven，并在设定中设置好项目目录，在运行参数中输入 mybatis-generator:generate -e 最后运行即可
+        注意在pom.xml中设定插件和指向本文件的参数
+        将生成的entity dao dao.xml复制到其他项目中即可
+    -->
+    <properties resource="app.properties"></properties>
+
+    <context id="default" targetRuntime="Mybatis3Simple">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true/false -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.pwd}">
+        </jdbcConnection>
+
+        <!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 生成model模型，对应的包，存放位置可以指定具体的路径,也可以使用MAVEN来自动生成 -->
+        <javaModelGenerator targetPackage="com.milton.shop.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--对应的xml mapper文件 -->
+        <sqlMapGenerator targetPackage="com.milton.shop.model.mysql" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- 对应的dao接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.milton.shop.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 后面的参数是避免生成example -->
+        <table tableName="%"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>

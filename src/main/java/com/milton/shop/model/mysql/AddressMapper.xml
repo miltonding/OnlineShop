@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.AddressMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.Address" >
+    <id column="addressid" property="addressid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="INTEGER" />
+    <result column="provinceid" property="provinceid" jdbcType="INTEGER" />
+    <result column="cityid" property="cityid" jdbcType="INTEGER" />
+    <result column="districtid" property="districtid" jdbcType="INTEGER" />
+    <result column="detail_address" property="detailAddress" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="WrapperResultMap" type="com.milton.shop.model.wrapper.AddressWrapper" >
+    <id column="addressid" property="addressid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="receiver_name" property="receiverName" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="INTEGER" />
+    <result column="provinceid" property="provinceid" jdbcType="INTEGER" />
+    <result column="cityid" property="cityid" jdbcType="INTEGER" />
+    <result column="districtid" property="districtid" jdbcType="INTEGER" />
+    <result column="detail_address" property="detailAddress" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    UPDATE address
+    SET is_delete = 1
+    where addressid = #{addressid,jdbcType=INTEGER}
+  </delete>
+  <insert id="createAddress" parameterType="com.milton.shop.model.Address" useGeneratedKeys="true" keyProperty="addressid">
+    insert into address (userid, receiver_name, 
+      phone_number, zip_code, provinceid, 
+      cityid, districtid, detail_address, is_default, is_delete
+      )
+    values (#{userid,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR}, 
+      #{phoneNumber,jdbcType=VARCHAR}, #{zipCode,jdbcType=INTEGER}, #{provinceid,jdbcType=INTEGER}, 
+      #{cityid,jdbcType=INTEGER}, #{districtid,jdbcType=INTEGER}, #{detailAddress,jdbcType=VARCHAR},
+      #{isDefault,jdbcType=INTEGER}, 0
+      )
+  </insert>
+  <update id="updateAddress" parameterType="com.milton.shop.model.Address">
+    update address
+    set receiver_name = #{receiverName,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      zip_code = #{zipCode,jdbcType=INTEGER},
+      provinceid = #{provinceid,jdbcType=INTEGER},
+      cityid = #{cityid,jdbcType=INTEGER},
+      districtid = #{districtid,jdbcType=INTEGER},
+      detail_address = #{detailAddress,jdbcType=VARCHAR}
+    where addressid = #{addressid,jdbcType=INTEGER}
+  </update>
+  <update id="updateDefaultAddress" parameterType="com.milton.shop.model.Address">
+    update address
+    set is_default = #{isDefault,jdbcType=INTEGER}
+    where addressid = #{addressid,jdbcType=INTEGER}
+    AND is_delete = 0
+  </update>
+  <select id="getUserAddress" resultMap="WrapperResultMap" parameterType="com.milton.shop.model.Address" >
+    SELECT ad.addressid, ad.userid, ad.receiver_name, ad.phone_number,
+      ad.zip_code, ad.provinceid, ad.cityid, ad.districtid, ad.detail_address,
+      ad.is_default, pro.province_name, ci.city_name, dis.district_name
+    FROM address ad
+    JOIN province pro 
+    ON ad.provinceid = pro.provinceid
+    JOIN city ci
+    ON ad.cityid=ci.cityid
+    JOIN district dis
+    ON ad.districtid=dis.districtid
+    where addressid = #{addressid,jdbcType=INTEGER}
+    AND userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select *
+    from address
+  </select>
+  <select id="findByuserid" resultMap="WrapperResultMap" parameterType="java.lang.Integer">
+    SELECT ad.addressid, ad.userid, ad.receiver_name, ad.phone_number,
+      ad.zip_code, ad.provinceid, ad.cityid, ad.districtid, ad.detail_address,
+      ad.is_default, pro.province_name, ci.city_name, dis.district_name
+    FROM address ad
+    JOIN province pro 
+    ON ad.provinceid = pro.provinceid
+    JOIN city ci
+    ON ad.cityid=ci.cityid
+    JOIN district dis
+    ON ad.districtid=dis.districtid
+    WHERE userid = #{userid,jdbcType=INTEGER}
+    AND is_delete = 0
+    ORDER BY is_default DESC
+  </select>
+  <select id="getDefaultAddress" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT *
+    FROM address
+    WHERE userid = #{userid,jdbcType=INTEGER}
+    AND is_default = 1
+  </select>
+</mapper>

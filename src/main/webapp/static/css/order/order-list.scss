@@ -1,0 +1,92 @@
+.order-list {
+    color: #aaa;
+    margin-bottom: 40px;
+
+    .no-order {
+        padding: 30px;
+        font-size: 18px;
+        color: #333;
+
+        a {
+            color: #c81623 !important;
+            font-size: 14px;
+        }
+    }
+
+    a {
+        color: #333 !important;
+        &:hover {
+            color: #c81623 !important;
+        }
+    }
+
+    .no-padding {
+        padding: 0;
+    }
+    .order-single {
+        margin-top: 20px;
+
+        .order-front {
+            background: #f5f5f5;
+            font-size: 12px;
+            font-family: verdana;
+            height: 31px;
+            line-height: 31px;
+            overflow: hidden;
+        }
+
+        .order-end {
+            overflow: hidden;
+            border: 1px solid #e5e5e5;
+
+            .common-column {
+                height: 80px;
+                line-height: 80px;
+                border: 1px solid #e5e5e5;
+                overflow: hidden;
+                padding: 0;
+
+
+                .row-two {
+                    height: 40px;
+                    line-height: 40px;
+                }
+            }
+
+            .p-goods {
+                height: 80px;
+                overflow: hidden;
+                border: 1px solid #e5e5e5;
+
+                .p-img {
+                    float: left;
+                    width: 20%;
+                    height: inherit;
+                    border: 1px solid #eee;
+                    background: #fff;
+                    padding: 0;
+                    text-align: center;
+                    overflow: inherit;
+                }
+
+                .p-name {
+                    float: left;
+                    width: 50%;
+                    margin-top: 3%;
+                    height: inherit;
+                    overflow: inherit;
+                }
+
+                .p-quantity {
+                    float: left;
+                    width: 29.9%;
+                    height: inherit;
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                    overflow: inherit;
+                    color: #aaa;
+                }
+            }
+        }
+    }
+}

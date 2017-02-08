@@ -1,0 +1,146 @@
+#content {
+    width: 60%;
+    position: relative;
+    margin: 30px auto;
+
+    a {
+      color: #666;
+      text-decoration: none;
+
+      &:hover {
+        color: #c81623;
+      }
+    }
+
+    .active a {
+        color: #c81623;
+    }
+
+    .margin-top-thrity {
+        margin-left: 20px;
+    }
+
+    .btn-full {
+        width: 100%;
+    }
+
+    .add-btn {
+        height:100%;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .delete-btn {
+        @extend .add-btn;
+    }
+
+    #profile_menu {
+        margin-bottom: 30px;
+
+        li.active a {
+            color: #c81623;
+        }
+    }
+
+    #register-form {
+        width: 100%;
+
+        label.font-md {
+            font-family: "Microsoft YaHei","Hiragino Sans GB";
+            font-weight: initial;
+            font-size: 16px;
+        }
+
+        .address-group {
+            .select-province, .select-city {
+                padding-left: 0;
+
+                select {
+                    width: 100%;
+                }
+            }
+
+            .select-district {
+                @extend .select-province;
+                padding-right: 0;
+            }
+
+            .help-block {
+                color: #a94442;
+            }
+        }
+
+        .username-label {
+            text-align: left;
+        }
+
+        .form-margin {
+            margin-bottom: 30px;
+        }
+    }
+
+    #profile-form {
+        @extend #register-form;
+
+        .username-label {
+            padding-left: 15px;
+            text-align: left;
+            ont-size: 18px;
+        }
+    }
+
+    #address-form {
+        @extend #register-form;
+    }
+
+    #address-group-form {
+         @extend #register-form;
+
+        .show-personal {
+            text-align: left;
+            font-size: 16px;
+
+            .address-username {
+                float: left;
+                width: 25%;
+                overflow: hidden;
+            }
+
+            .address-phone {
+                @extend .address-username;
+                width: 35%;
+                margin-left: 10%;
+            }
+
+            .address-code {
+                float:right;
+                width: 25%;
+                text-align: right;
+                overflow: hidden;
+            }
+        }
+
+        .show-address {
+            text-align: left;
+            overflow: hidden;
+
+            .show-common {
+                display: block;
+                float: left;
+                width: 33.3%;
+                margin-left: 0;
+                margin-right: 0;
+                font-weight: initial;
+                overflow: inherit;
+            }
+
+            .show-detail {
+                display: block;
+                width: 100%;
+                font-weight: initial;
+                overflow: inherit;
+            }
+        }
+     }
+}

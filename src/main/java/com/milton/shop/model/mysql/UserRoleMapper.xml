@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.UserRole" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <id column="roleid" property="roleid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from user_role
+    where userid = #{userid,jdbcType=INTEGER}
+      and roleid = #{roleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.milton.shop.model.UserRole" >
+    insert into user_role (userid, roleid)
+    values (#{userid,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select userid, roleid
+    from user_role
+  </select>
+  <select id="findRoleByUserid" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select roleid
+    from user_role
+    WHERE userid = #{userid,jdbcType=INTEGER}
+  </select>
+</mapper>

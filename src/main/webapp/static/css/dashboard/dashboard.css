@@ -1,0 +1,28 @@
+#dashboard {
+  background-color: #f6f6f6; }
+  #dashboard a {
+    color: inherit;
+    text-decoration: none; }
+    #dashboard a:hover {
+      color: #c81623; }
+  #dashboard #content .item-wrapper {
+    height: 400px; }
+    #dashboard #content .item-wrapper .item-category {
+      height: inherit;
+      overflow: hidden;
+      padding: 15px 0;
+      background-color: #6e6568;
+      color: #fff;
+      font-size: 18px; }
+      #dashboard #content .item-wrapper .item-category .category-ul {
+        width: 100%;
+        height: 100%;
+        padding-left: 10%; }
+        #dashboard #content .item-wrapper .item-category .category-ul .category-li {
+          padding: 3%; }
+    #dashboard #content .item-wrapper .item-animation {
+      height: inherit;
+      overflow: hidden;
+      padding-right: 0; }
+
+/*# sourceMappingURL=dashboard.css.map */

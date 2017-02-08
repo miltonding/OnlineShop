@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.Goods" >
+    <id column="goodsid" property="goodsid" jdbcType="INTEGER" />
+    <id column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="entryid" property="entryid" jdbcType="VARCHAR" />
+    <result column="chinese_name" property="chineseName" jdbcType="VARCHAR" />
+    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
+    <result column="goods_describe" property="goodsDescribe" jdbcType="VARCHAR" />
+    <result column="goods_advantage" property="goodsAdvantage" jdbcType="VARCHAR" />
+    <result column="unit_cost" property="unitCost" jdbcType="DOUBLE" />
+    <result column="list_price" property="listPrice" jdbcType="DOUBLE" />
+    <result column="in_sale" property="inSale" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="attr_one" property="attrOne" jdbcType="VARCHAR" />
+    <result column="attr_two" property="attrTwo" jdbcType="VARCHAR" />
+    <result column="attr_three" property="attrThree" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="WrapperResultMap" type="com.milton.shop.model.wrapper.GoodsWrapper" >
+    <id column="goodsid" property="goodsid" jdbcType="INTEGER" />
+    <id column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="kindid" property="kindid" jdbcType="INTEGER" />
+    <result column="kind_name" property="kindName" jdbcType="VARCHAR" />
+    <result column="categoryid" property="categoryid" jdbcType="INTEGER" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="entryid" property="entryid" jdbcType="VARCHAR" />
+    <result column="chinese_name" property="chineseName" jdbcType="VARCHAR" />
+    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
+    <result column="goods_describe" property="goodsDescribe" jdbcType="VARCHAR" />
+    <result column="goods_advantage" property="goodsAdvantage" jdbcType="VARCHAR" />
+    <result column="unit_cost" property="unitCost" jdbcType="DOUBLE" />
+    <result column="list_price" property="listPrice" jdbcType="DOUBLE" />
+    <result column="in_sale" property="inSale" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="attr_one" property="attrOne" jdbcType="VARCHAR" />
+    <result column="attr_two" property="attrTwo" jdbcType="VARCHAR" />
+    <result column="attr_three" property="attrThree" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="src_path" property="srcPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from goods
+    where goodsid = #{goodsid,jdbcType=INTEGER}
+      and productid = #{productid,jdbcType=INTEGER}
+  </delete>
+  <insert id="createGoods" parameterType="com.milton.shop.model.Goods" useGeneratedKeys="true" keyProperty="goodsid">
+    INSERT INTO `goods`(productid, brand, 
+      entryid, chinese_name, english_name, 
+      goods_describe, goods_advantage, unit_cost, 
+      list_price, in_sale, is_delete, 
+      attr_one, attr_two, attr_three, 
+      weight)
+    values (#{productid,jdbcType=INTEGER}, #{brand,jdbcType=VARCHAR}, 
+      #{entryid,jdbcType=INTEGER}, #{chineseName,jdbcType=VARCHAR}, #{englishName,jdbcType=VARCHAR}, 
+      #{goodsDescribe,jdbcType=VARCHAR}, #{goodsAdvantage,jdbcType=VARCHAR}, #{unitCost,jdbcType=DOUBLE}, 
+      #{listPrice,jdbcType=DOUBLE}, #{inSale,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{attrOne,jdbcType=VARCHAR}, #{attrTwo,jdbcType=VARCHAR}, #{attrThree,jdbcType=VARCHAR}, 
+      #{weight,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.milton.shop.model.Goods" >
+    update goods
+    set brand = #{brand,jdbcType=VARCHAR},
+      entryid = #{INTEGER,jdbcType=INTEGER},
+      chinese_name = #{chineseName,jdbcType=VARCHAR},
+      english_name = #{englishName,jdbcType=VARCHAR},
+      goods_describe = #{goodsDescribe,jdbcType=VARCHAR},
+      goods_advantage = #{goodsAdvantage,jdbcType=VARCHAR},
+      unit_cost = #{unitCost,jdbcType=DOUBLE},
+      list_price = #{listPrice,jdbcType=DOUBLE},
+      in_sale = #{inSale,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      attr_one = #{attrOne,jdbcType=VARCHAR},
+      attr_two = #{attrTwo,jdbcType=VARCHAR},
+      attr_three = #{attrThree,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=INTEGER}
+    where goodsid = #{goodsid,jdbcType=INTEGER}
+      and productid = #{productid,jdbcType=INTEGER}
+  </update>
+  <select id="getByPrimaryKey" resultMap="WrapperResultMap" parameterType="int" >
+    SELECT k.kindid, k.kind_name, ca.categoryid, ca.category_name, p.productid,
+      p.product_name, g.goodsid, brand, chinese_name, english_name, 
+      goods_describe, goods_advantage, unit_cost, list_price, in_sale,
+      is_delete, attr_one, attr_two, attr_three, g.weight, iy.quantity,
+      g.entryid, CONCAT(df.parentpath, df.path, IFNULL(de.path, ''),
+      '/', de.uuid, '.', de.mime_type) as 'src_path'
+    FROM goods g
+      LEFT JOIN inventory iy
+      ON g.goodsid = iy.goodsid
+      LEFT JOIN product p
+      ON g.productid = p.productid
+      LEFT JOIN category ca
+      ON p.categoryid = ca.categoryid
+      LEFT JOIN kind k
+      ON ca.kindid = k.kindid
+      LEFT JOIN dlfileentry de
+      ON g.entryid = de.entryid
+      LEFT JOIN dlfolder df
+      ON de.folderid = df.folderid
+    WHERE g.goodsid = #{goodsid,jdbcType=INTEGER}
+  </select>
+  <select id="getGoodsQuantity" parameterType="com.milton.shop.model.Pagination" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM goods g
+      JOIN product p
+      ON g.productid = p.productid
+      JOIN category ca
+      ON p.categoryid = ca.categoryid
+      JOIN kind k
+      ON ca.kindid = k.kindid
+      WHERE 1 = 1 
+      <if test="keyword != '' and keyword != null">
+        AND (k.kind_name LIKE CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')
+          OR LOWER(ca.category_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(p.product_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(brand) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(chinese_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(english_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(goods_describe) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(goods_advantage) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(attr_one) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(attr_two) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(attr_three) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')))
+    </if>
+    <if test="kindid != 0">
+      AND k.kindid = #{kindid,jdbcType=INTEGER}
+    </if>
+    <if test="categoryid != 0">
+      AND ca.categoryid = #{categoryid,jdbcType=INTEGER}
+    </if>
+    <if test="productid != 0">
+      AND p.productid = #{productid,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="dynamicQuery" resultMap="WrapperResultMap" parameterType="com.milton.shop.model.Pagination">
+    SELECT k.kindid, k.kind_name, ca.categoryid, ca.category_name, p.productid,
+      p.product_name, g.goodsid, brand, chinese_name, english_name, 
+      goods_describe, goods_advantage, unit_cost, list_price, in_sale,
+      is_delete, attr_one, attr_two, attr_three, g.weight, iy.quantity,
+      g.entryid, CONCAT(df.parentpath, df.path, IFNULL(de.path, ''),
+      '/', de.uuid, '.', de.mime_type) as 'src_path'
+    FROM goods g
+      LEFT JOIN inventory iy
+      ON g.goodsid = iy.goodsid
+      LEFT JOIN product p
+      ON g.productid = p.productid
+      LEFT JOIN category ca
+      ON p.categoryid = ca.categoryid
+      LEFT JOIN kind k
+      ON ca.kindid = k.kindid
+      LEFT JOIN dlfileentry de
+      ON g.entryid = de.entryid
+      LEFT JOIN dlfolder df
+      ON de.folderid = df.folderid
+    WHERE 1 = 1
+      <if test="keyword != '' and keyword != null">
+        AND (k.kind_name LIKE CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')
+          OR LOWER(ca.category_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(p.product_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(brand) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(chinese_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(english_name) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(goods_describe) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(goods_advantage) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(attr_one) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(attr_two) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%'))
+          OR LOWER(attr_three) LIKE LOWER(CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')))
+      </if>
+      <if test="kindid != 0">
+        AND k.kindid = #{kindid,jdbcType=INTEGER}
+      </if>
+      <if test="categoryid != 0">
+        AND ca.categoryid = #{categoryid,jdbcType=INTEGER}
+      </if>
+      <if test="productid != 0">
+        AND p.productid = #{productid,jdbcType=INTEGER}
+      </if>
+
+      <if test="order != '' and order != null">
+        ORDER BY g.weight
+      </if>
+    LIMIT #{offset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="findGoods" parameterType="List" resultMap="WrapperResultMap">
+    <![CDATA[
+      SELECT k.kindid, k.kind_name, ca.categoryid, ca.category_name, p.productid,
+        p.product_name, g.goodsid, brand, chinese_name, english_name, 
+        goods_describe, goods_advantage, unit_cost, list_price, in_sale,
+        is_delete, attr_one, attr_two, attr_three, g.weight, iy.quantity,
+        g.entryid, CONCAT(df.parentpath, df.path, IFNULL(de.path, ''),
+        '/', de.uuid, '.', de.mime_type) as 'src_path'
+      FROM goods g
+        LEFT JOIN inventory iy
+        ON g.goodsid = iy.goodsid
+        LEFT JOIN product p
+        ON g.productid = p.productid
+        LEFT JOIN category ca
+        ON p.categoryid = ca.categoryid
+        LEFT JOIN kind k
+        ON ca.kindid = k.kindid
+        LEFT JOIN dlfileentry de
+        ON g.entryid = de.entryid
+        LEFT JOIN dlfolder df
+        ON de.folderid = df.folderid
+      WHERE g.goodsid IN
+    ]]>
+    <foreach collection="list" item="goodsid" open="(" separator="," close=")">
+      #{goodsid}
+    </foreach>
+  </select>
+</mapper>

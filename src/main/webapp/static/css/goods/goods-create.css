@@ -1,0 +1,24 @@
+#goods-form {
+  margin-top: 30px; }
+  #goods-form #img-group {
+    width: 50%;
+    vertical-align: middle; }
+    #goods-form #img-group button {
+      width: 100%; }
+    #goods-form #img-group .img-selected {
+      border: 3px solid #d9534f; }
+    #goods-form #img-group .img-ul {
+      width: 100%;
+      height: 420px;
+      overflow: auto; }
+      #goods-form #img-group .img-ul .img-li {
+        width: 25%;
+        height: 100px;
+        float: left; }
+        #goods-form #img-group .img-ul .img-li:hover {
+          border: 3px solid #d9534f; }
+        #goods-form #img-group .img-ul .img-li img {
+          width: 100%;
+          height: 100%; }
+
+/*# sourceMappingURL=goods-create.css.map */

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.LineGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.LineGoods" >
+    <id column="orderid" property="orderid" jdbcType="INTEGER" />
+    <id column="goodsid" property="goodsid" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="total_cost" property="totalCost" jdbcType="DOUBLE" />
+    <result column="total_price" property="totalPrice" jdbcType="DOUBLE" />
+  </resultMap>
+  <delete id="deleteByOrderid" parameterType="map" >
+    delete from line_goods
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <insert id="create" parameterType="com.milton.shop.model.LineGoods" >
+    insert into line_goods (orderid, goodsid, quantity, 
+      total_cost, total_price)
+    values (#{orderid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
+      #{totalCost,jdbcType=DOUBLE}, #{totalPrice,jdbcType=DOUBLE})
+  </insert>
+  <insert id="createBatch" parameterType="java.util.List" >
+    insert into line_goods (orderid, goodsid, quantity, 
+      total_cost, total_price)
+    values
+    <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.orderid,jdbcType=INTEGER}, #{item.goodsid,jdbcType=INTEGER},
+         #{item.quantity,jdbcType=INTEGER}, #{item.totalCost,jdbcType=DOUBLE},
+         #{item.totalPrice,jdbcType=DOUBLE})
+    </foreach>  
+  </insert>
+  <update id="updateByOrderid" parameterType="com.milton.shop.model.LineGoods" >
+    update line_goods
+    set quantity = #{quantity,jdbcType=INTEGER},
+      total_cost = #{totalCost,jdbcType=DOUBLE},
+      total_price = #{totalPrice,jdbcType=DOUBLE}
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </update>
+  <select id="findByOrderid" resultMap="BaseResultMap" parameterType="map" >
+    select orderid, goodsid, quantity, total_cost, total_price
+    from line_goods
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select orderid, goodsid, quantity, total_cost, total_price
+    from line_goods
+  </select>
+</mapper>

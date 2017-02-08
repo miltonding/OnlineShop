@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.DistrictMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.District" >
+    <id column="districtid" property="districtid" jdbcType="INTEGER" />
+    <result column="cityid" property="cityid" jdbcType="INTEGER" />
+    <result column="district_name" property="districtName" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from district
+    where districtid = #{districtid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.milton.shop.model.District" >
+    insert into district (districtid, cityid, district_name
+      )
+    values (#{districtid,jdbcType=INTEGER}, #{cityid,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.milton.shop.model.District" >
+    update district
+    set cityid = #{cityid,jdbcType=INTEGER},
+      district_name = #{districtName,jdbcType=VARCHAR}
+    where districtid = #{districtid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select districtid, cityid, district_name
+    from district
+    where districtid = #{districtid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select districtid, cityid, district_name
+    from district
+  </select>
+  <select id="findByCityId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from district
+    WHERE cityid = #{cityid,jdbcType=INTEGER}
+  </select>
+</mapper>

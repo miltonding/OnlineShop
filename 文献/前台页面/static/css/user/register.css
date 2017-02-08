@@ -1,0 +1,79 @@
+#content {
+  width: 60%;
+  position: relative;
+  margin: 30px auto; }
+  #content a {
+    color: #666;
+    text-decoration: none; }
+    #content a:hover {
+      color: #c81623; }
+  #content .active a {
+    color: #c81623; }
+  #content .margin-top-thrity {
+    margin-left: 20px; }
+  #content .btn-full {
+    width: 100%; }
+  #content .add-btn, #content .delete-btn {
+    height: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left; }
+  #content #profile_menu {
+    margin-bottom: 30px; }
+    #content #profile_menu li.active a {
+      color: #c81623; }
+  #content #register-form, #content #profile-form, #content #address-form, #content #address-group-form {
+    width: 100%; }
+    #content #register-form label.font-md, #content #profile-form label.font-md, #content #address-form label.font-md, #content #address-group-form label.font-md {
+      font-family: "Microsoft YaHei","Hiragino Sans GB";
+      font-weight: initial;
+      font-size: 16px; }
+    #content #register-form .address-group .select-province, #content #profile-form .address-group .select-province, #content #address-form .address-group .select-province, #content #address-group-form .address-group .select-province, #content #register-form .address-group .select-district, #content #profile-form .address-group .select-district, #content #address-form .address-group .select-district, #content #address-group-form .address-group .select-district, #content #register-form .address-group .select-city, #content #profile-form .address-group .select-city, #content #address-form .address-group .select-city, #content #address-group-form .address-group .select-city {
+      padding-left: 0; }
+      #content #register-form .address-group .select-province select, #content #profile-form .address-group .select-province select, #content #address-form .address-group .select-province select, #content #address-group-form .address-group .select-province select, #content #register-form .address-group .select-district select, #content #profile-form .address-group .select-district select, #content #address-form .address-group .select-district select, #content #address-group-form .address-group .select-district select, #content #register-form .address-group .select-city select, #content #profile-form .address-group .select-city select, #content #address-form .address-group .select-city select, #content #address-group-form .address-group .select-city select {
+        width: 100%; }
+    #content #register-form .address-group .select-district, #content #profile-form .address-group .select-district, #content #address-form .address-group .select-district, #content #address-group-form .address-group .select-district {
+      padding-right: 0; }
+    #content #register-form .address-group .help-block, #content #profile-form .address-group .help-block, #content #address-form .address-group .help-block, #content #address-group-form .address-group .help-block {
+      color: #a94442; }
+    #content #register-form .username-label, #content #profile-form .username-label, #content #address-form .username-label, #content #address-group-form .username-label {
+      text-align: left; }
+    #content #register-form .form-margin, #content #profile-form .form-margin, #content #address-form .form-margin, #content #address-group-form .form-margin {
+      margin-bottom: 30px; }
+  #content #profile-form .username-label {
+    padding-left: 15px;
+    text-align: left;
+    ont-size: 18px; }
+  #content #address-group-form .show-personal {
+    text-align: left;
+    font-size: 16px; }
+    #content #address-group-form .show-personal .address-username, #content #address-group-form .show-personal .address-phone {
+      float: left;
+      width: 25%;
+      overflow: hidden; }
+    #content #address-group-form .show-personal .address-phone {
+      width: 35%;
+      margin-left: 10%; }
+    #content #address-group-form .show-personal .address-code {
+      float: right;
+      width: 25%;
+      text-align: right;
+      overflow: hidden; }
+  #content #address-group-form .show-address {
+    text-align: left;
+    overflow: hidden; }
+    #content #address-group-form .show-address .show-common {
+      display: block;
+      float: left;
+      width: 33.3%;
+      margin-left: 0;
+      margin-right: 0;
+      font-weight: initial;
+      overflow: inherit; }
+    #content #address-group-form .show-address .show-detail {
+      display: block;
+      width: 100%;
+      font-weight: initial;
+      overflow: inherit; }
+
+/*# sourceMappingURL=register.css.map */

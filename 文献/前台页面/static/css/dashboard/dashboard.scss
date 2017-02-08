@@ -1,0 +1,43 @@
+#dashboard {
+    background-color: #f6f6f6;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: #c81623;
+        }
+    }
+
+    #content {
+        .item-wrapper{
+            height: 400px;
+
+            .item-category {
+                height: inherit;
+                overflow: hidden;
+                padding: 15px 0;
+                background-color: #6e6568;
+                color: #fff;
+                font-size: 18px;
+
+                .category-ul {
+                    width: 100%;
+                    height: 100%;
+                    padding-left: 10%;
+
+                    .category-li {
+                        padding: 3%;
+                    }
+                }
+            }
+
+            .item-animation {
+                height: inherit;
+                overflow: hidden;
+                padding-right: 0;
+            }
+        }
+    }
+}

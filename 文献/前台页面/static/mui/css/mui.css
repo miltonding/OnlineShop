@@ -1,0 +1,160 @@
+@charset "UTF-8";
+.hidden-screen, .disable-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  opacity: 0.2;
+  background: #fff; }
+
+.disable-screen {
+  background: #000; }
+
+/* Message */
+.flash-message-ok, .flash-message-error, .fixed-message-error, .fixed-message-ok, .confirm-message {
+  position: absolute;
+  left: 40%;
+  top: 0;
+  width: 20%;
+  height: 40px;
+  line-height: 40px;
+  background: #3c763d;
+  z-index: 100;
+  color: #fff; }
+
+.flash-message-error, .fixed-message-error {
+  background: #d9534f; }
+
+.fixed-message-ok, .confirm-message {
+  position: fixed; }
+
+.fixed-message-error {
+  position: fixed; }
+
+.confirm-message {
+  background: #333;
+  top: 50%;
+  height: auto; }
+  .confirm-message .ok, .confirm-message .cancel {
+    color: #3c763d !important;
+    text-decoration: none; }
+  .confirm-message .cancel {
+    color: #d9534f !important; }
+
+/* plain carousel */
+[role="plain-carousel"] {
+  width: 100%;
+  height: inherit;
+  overflow: hidden; }
+  [role="plain-carousel"] #item-animation {
+    width: 100%;
+    height: inherit;
+    margin: 0 auto;
+    position: relative; }
+    [role="plain-carousel"] #item-animation .slider_item {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+      height: 100%; }
+    [role="plain-carousel"] #item-animation #move_block .slider_show, [role="plain-carousel"] #item-animation #move_block .slider_hide {
+      position: absolute;
+      z-index: 1;
+      opacity: 1;
+      transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -webkit-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease; }
+    [role="plain-carousel"] #item-animation #move_block .slider_hide {
+      z-index: 0;
+      opacity: 0; }
+    [role="plain-carousel"] #item-animation .slider_indicator {
+      position: absolute;
+      z-index: 1;
+      left: 50%;
+      margin-left: -91px;
+      bottom: 20px;
+      font-size: 0;
+      padding: 4px 8px;
+      -moz-border-radius: 12px;
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.3);
+      display: block; }
+      [role="plain-carousel"] #item-animation .slider_indicator .slider_indicator_btn {
+        display: inline-block;
+        margin-right: 10px;
+        width: 12px;
+        height: 12px;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        background-color: #fff; }
+      [role="plain-carousel"] #item-animation .slider_indicator .slider_indicator_btn_last {
+        margin-right: 0; }
+      [role="plain-carousel"] #item-animation .slider_indicator .slider_indicator_active {
+        background-color: red; }
+    [role="plain-carousel"] #item-animation .slider_control_common, [role="plain-carousel"] #item-animation .slider_control_prev, [role="plain-carousel"] #item-animation .slider_control_next {
+      position: absolute;
+      top: 50%;
+      z-index: 1;
+      width: 30px;
+      height: 60px;
+      line-height: 60px;
+      margin-top: -30px;
+      background-color: rgba(0, 0, 0, 0.1);
+      text-align: center;
+      display: none;
+      text-decoration: none; }
+      [role="plain-carousel"] #item-animation .slider_control_common:hover, [role="plain-carousel"] #item-animation .slider_control_prev:hover, [role="plain-carousel"] #item-animation .slider_control_next:hover {
+        background-color: #333; }
+    [role="plain-carousel"] #item-animation .slider_control_prev {
+      left: 0; }
+    [role="plain-carousel"] #item-animation .slider_control_next {
+      right: 0; }
+    [role="plain-carousel"] #item-animation .slider_control_font {
+      font-size: 20px;
+      color: #fff; }
+    [role="plain-carousel"] #item-animation .common_img {
+      width: 100%;
+      height: 100%;
+      /*
+        瀹炵幇娓愬彉
+      */
+      transition: all 2s ease;
+      -moz-transition: all 2s ease;
+      -webkit-transition: all 2s ease;
+      -o-transition: all 2s ease; }
+
+/* file upload */
+[role="upload"] .upload-wrapper {
+  text-align: center; }
+  [role="upload"] .upload-wrapper .image-block {
+    height: 100px;
+    background: #f9f9f9;
+    border: 1px solid #e9eaec; }
+    [role="upload"] .upload-wrapper .image-block img {
+      width: 100px;
+      height: 100px; }
+  [role="upload"] .upload-wrapper .upload-tip {
+    margin-top: 10px;
+    color: #999; }
+  [role="upload"] .upload-wrapper .btn-group {
+    width: 100%;
+    margin-bottom: 10px; }
+    [role="upload"] .upload-wrapper .btn-group .choose-btn {
+      width: 47.5%;
+      position: relative;
+      overflow: hidden; }
+      [role="upload"] .upload-wrapper .btn-group .choose-btn .upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        cursor: pointer;
+        opacity: 0;
+        height: 100%; }
+    [role="upload"] .upload-wrapper .btn-group .upload-btn {
+      width: 47.5%;
+      margin-left: 5%; }
+
+/*# sourceMappingURL=mui.css.map */

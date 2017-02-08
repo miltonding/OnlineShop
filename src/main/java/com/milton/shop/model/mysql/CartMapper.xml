@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.milton.shop.dao.CartMapper" >
+  <resultMap id="BaseResultMap" type="com.milton.shop.model.Cart" >
+    <id column="cartid" property="cartid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="goodsid" property="goodsid" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="is_pay" property="isPay" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    DELETE FROM cart
+    where cartid = #{cartid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBatch" parameterType="List">
+    DELETE FROM cart
+    where cartid IN
+    <foreach collection="list" item="id" open="(" separator="," close=")">
+      #{id,jdbcType=INTEGER}
+    </foreach>
+  </delete>
+  <insert id="addCart" parameterType="com.milton.shop.model.Cart" >
+    insert into cart (userid, goodsid, 
+      quantity, is_pay, is_delete, 
+      weight)
+    values (#{userid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, 
+      #{quantity,jdbcType=INTEGER}, #{isPay,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{weight,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.milton.shop.model.Cart" >
+    update cart
+    set goodsid = #{goodsid,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      is_pay = #{isPay,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER}
+    where cartid = #{cartid,jdbcType=INTEGER}
+    AND is_delete = 0
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select cartid, userid, goodsid, quantity, is_pay, is_delete, weight
+    from cart
+    where cartid = #{cartid,jdbcType=INTEGER}
+    AND is_delete = 0
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select cartid, userid, goodsid, quantity, is_pay, is_delete, weight
+    from cart
+  </select>
+  <select id="getByUseridAndGoodsid" parameterType="com.milton.shop.model.Cart" resultMap="BaseResultMap" >
+    select cartid, userid, goodsid, quantity, is_pay, is_delete, weight
+    from cart
+    WHERE userid = #{userid,jdbcType=INTEGER}
+    AND goodsid = #{goodsid,jdbcType=INTEGER}
+    AND is_delete = 0
+  </select>
+  <select id="findByUserid" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select cartid, userid, goodsid, quantity, is_pay, is_delete, weight
+    from cart
+    WHERE userid = #{userid,jdbcType=INTEGER}
+    AND is_delete = 0
+  </select>
+  <select id="getByPrimarykey" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select *
+    from cart
+    WHERE cartid = #{cartid,jdbcType=INTEGER}
+    AND is_delete = 0
+  </select>
+  <select id="findCarts"  parameterType="List" resultMap="BaseResultMap" >
+    select cartid, userid, goodsid, quantity, is_pay, is_delete, weight
+    from cart
+    WHERE is_delete = 0
+    AND cartid IN
+    <foreach collection="list" item="cartid" open="(" separator="," close=")">
+     #{cartid}
+    </foreach>
+  </select>
+  <select id="getTotalCost"  parameterType="java.lang.Integer" resultType="Double" >
+    select  SUM(quantity * g.unit_cost)
+    from cart ca
+    JOIN goods g
+    ON ca.goodsid = g.goodsid
+    WHERE ca.is_delete = 0
+    AND cartid = #{cartid,jdbcType=INTEGER}
+  </select>
+  <select id="getListTotalCost"  parameterType="List" resultType="Double" >
+    select  SUM(quantity * g.unit_cost)
+    from cart ca
+    JOIN goods g
+    ON ca.goodsid = g.goodsid
+    WHERE ca.is_delete = 0
+    AND cartid IN
+    <foreach collection="list" item="cartid" open="(" separator="," close=")">
+     #{cartid}
+    </foreach>
+  </select>
+  <select id="getTotalPrice"  parameterType="java.lang.Integer" resultType="Double">
+    select  SUM(quantity * g.list_price)
+    from cart ca
+    JOIN goods g
+    ON ca.goodsid = g.goodsid
+    WHERE ca.is_delete = 0
+    AND cartid = #{cartid,jdbcType=INTEGER}
+  </select>
+  <select id="getListTotalPrice"  parameterType="List" resultType="Double">
+    select  SUM(quantity * g.list_price)
+    from cart ca
+    JOIN goods g
+    ON ca.goodsid = g.goodsid
+    WHERE ca.is_delete = 0
+    AND cartid IN
+    <foreach collection="list" item="cartid" open="(" separator="," close=")">
+     #{cartid}
+    </foreach>
+  </select>
+</mapper>

@@ -1,0 +1,25 @@
+apache默认静态资源路径： E:\xampp\htdocs
+
+
+1. 在hosts文件里给127.0.0.1添加
+serverName  static.webapp.com
+
+
+2. 修改httpd-vhosts.conf文件
+<VirtualHost *:80>
+	##ServerAdmin webmaster@dummy-host2.example.com
+	
+	##Access control for http://localhost:8080
+	Header set Access-Control-Allow-Origin http://localhost:8080
+	
+	##Must in apache root htdocs
+    DocumentRoot "E:/xampp/htdocs/static"
+    ServerName static.webapp.com
+    ErrorLog "E:/xampp/apache/logs/apache2.localhost-error.log"
+    CustomLog "E:/xampp/apache/logs/apache2.localhost-access.log" common
+
+	<Directory "E:/xampp/htdocs/static">
+		AllowOverride All
+		Require all granted
+	</Directory>
+</VirtualHost>
