@@ -1,0 +1,29 @@
+upload
+属性
+1. name input[type="file"]的name
+2. action 
+3. type 上传文件的类型 image/common (默认为common)
+4. src image的初始路径
+5. tip 提示信息
+6. chooseText 选择按钮的text
+7. uploadText 上传按钮的text
+8. progress 上传进度初始化值
+
+
+
+
+// 1. type = image
+<mui:upload name="file" action="uploadHeader" type="image" src="${user.srcPath}"
+  chooseText="选择头像" uploadText="上传头像"/>
+
+// type = common
+<mui:upload name="file" action="uploadHeader"/>
+
+
+    Function
+// 1.添加额外的参数
+addParam(json);
+// 2.添加input
+addField(object[]);
+// 3.添加验证
+addValidate(function);
